@@ -97,14 +97,14 @@ const Hero = () => {
               <div className="mt-8 lg:mt-10 flex justify-start items-center gap-2.5">
                 <Link
                   href="/signup"
-                  className="flex-wrap gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-purple-200 dark:focus:ring-purple-800 inline-flex items-center justify-center px-7 py-4 text-lg font-semibold leading-7 text-white transition-all duration-200 border rounded-md border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2"
+                  className="flex-wrap gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-purple-200 dark:focus:ring-purple-800 inline-flex items-center justify-center px-5 lg:px-7 py-4 text-base lg:text-lg font-semibold leading-7 text-white transition-all duration-200 border rounded-md border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2"
                   role="button"
                 >
-                  Get Started Now
-                  <HiOutlineArrowRight className="ml-2 h-5 w-5" />
+                  Get Started <span className="hidden lg:block">Now</span>
+                  <HiOutlineArrowRight className="h-4 w-4 lg:h-5 lg:w-5" />
                 </Link>
                 <Link href="/">
-                    <Image src={DownloadButton} alt="Play Store Download Button" width={190} />
+                    <Image src={DownloadButton} alt="Play Store Download Button" width={190} className="w-[185px] lg:w-[190px]" />
                 </Link>
               </div>
 
