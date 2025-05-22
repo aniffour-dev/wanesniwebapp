@@ -6,12 +6,10 @@ type Policy = {
   content: string;
 };
 
-// Use the correct context shape Next.js expects
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+// ✅ No custom type. Use destructuring with inline typing
+export async function generateMetadata(
+  { params }: { params: { slug: string } }
+): Promise<Metadata> {
   const policy = await getPolicy(params.slug);
 
   return {
@@ -29,17 +27,13 @@ async function getPolicy(slug: string): Promise<Policy | null> {
 
     const data = await res.json();
     return data.data?.[0] ?? null;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
 
-// Also fix the page component typing for App Router
-const PolicyPage = async ({
-  params,
-}: {
-  params: { slug: string };
-}) => {
+// ✅ Fix typing here too
+const PolicyPage = async ({ params }: { params: { slug: string } }) => {
   const policy = await getPolicy(params.slug);
 
   if (!policy) {
