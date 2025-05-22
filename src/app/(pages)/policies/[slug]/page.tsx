@@ -12,10 +12,9 @@ type Policy = {
   content: string;
 };
 
-export async function generateMetadata({
-  params,
-}: PolicyPageProps): Promise<Metadata> {
-  const policy = await getPolicy(params.slug);
+export async function generateMetadata({ params}: PolicyPageProps): Promise<Metadata> {
+    var {slug} =  params;
+  const policy = await getPolicy(slug);
 
   return {
     title: policy?.title ?? "Policy",
