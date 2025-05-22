@@ -18,3 +18,12 @@
       background-position: 0% 50%;
     }
   }
+
+
+  .page-content p{
+    @apply mb-10;
+  }
+  .page-content p a{
+    @apply text-purple-500;
+    @apply font-bold;
+  }
