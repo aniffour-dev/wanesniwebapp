@@ -6,11 +6,12 @@ type Policy = {
   content: string;
 };
 
-// ✅ No custom type. Use destructuring with inline typing
+// ✅ Fixed: params is now a Promise in Next.js 15
 export async function generateMetadata(
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
-  const policy = await getPolicy(params.slug);
+  const { slug } = await params;
+  const policy = await getPolicy(slug);
 
   return {
     title: policy?.title ?? "Policy",
@@ -32,9 +33,10 @@ async function getPolicy(slug: string): Promise<Policy | null> {
   }
 }
 
-// ✅ Fix typing here too
-const PolicyPage = async ({ params }: { params: { slug: string } }) => {
-  const policy = await getPolicy(params.slug);
+// ✅ Fixed: params is now a Promise in Next.js 15
+const PolicyPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await params;
+  const policy = await getPolicy(slug);
 
   if (!policy) {
     notFound();
