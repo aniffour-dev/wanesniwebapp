@@ -1,20 +1,18 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
-type PolicyPageProps = {
-  params: {
-    slug: string;
-  };
-};
-
 type Policy = {
   title: string;
   content: string;
 };
 
-export async function generateMetadata({ params}: PolicyPageProps): Promise<Metadata> {
-    var {slug} =  params;
-  const policy = await getPolicy(slug);
+// Use the correct context shape Next.js expects
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const policy = await getPolicy(params.slug);
 
   return {
     title: policy?.title ?? "Policy",
@@ -36,7 +34,12 @@ async function getPolicy(slug: string): Promise<Policy | null> {
   }
 }
 
-const PolicyPage = async ({ params }: PolicyPageProps) => {
+// Also fix the page component typing for App Router
+const PolicyPage = async ({
+  params,
+}: {
+  params: { slug: string };
+}) => {
   const policy = await getPolicy(params.slug);
 
   if (!policy) {
@@ -52,9 +55,8 @@ const PolicyPage = async ({ params }: PolicyPageProps) => {
 
         <article
           className="page-content prose prose-lg prose-p:mb-6 prose-p:leading-relaxed text-gray-700 max-w-none"
-        >
-            <p dangerouslySetInnerHTML={{ __html: policy.content }} />
-        </article>
+          dangerouslySetInnerHTML={{ __html: policy.content }}
+        />
       </div>
     </main>
   );
